@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Doctor - eClinic</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-sidebar">
+            <h3>Your Doctors</h3>
+        </div>
+        <div class="chat-main">
+            <div class="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button class="btn-send">Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+  const messagesContainer = document.querySelector('.chat-messages');
+  const inputField = document.querySelector('.chat-input input');
+  const sendButton = document.querySelector('.btn-send');
+
+  // Fake doctor responses
+  const doctorReplies = [
+    "Hello! How can I assist you today?",
+    "Can you describe your symptoms?",
+    "I recommend getting some rest and staying hydrated.",
+    "Please schedule a physical checkup for a proper diagnosis.",
+    "That's interesting. Let me look into it further.",
+    "Make sure to take your prescribed medication regularly."
+  ];
+
+  function addMessage(sender, text) {
+    const message = document.createElement('div');
+    message.classList.add('message');
+    message.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    messagesContainer.appendChild(message);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function fakeDoctorReply() {
+    const reply = doctorReplies[Math.floor(Math.random() * doctorReplies.length)];
+    setTimeout(() => addMessage("Doctor", reply), 1000);
+  }
+
+  sendButton.addEventListener('click', () => {
+    const userMessage = inputField.value.trim();
+    if (userMessage !== "") {
+      addMessage("You", userMessage);
+      inputField.value = "";
+      fakeDoctorReply();
+    }
+  });
+
+  inputField.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendButton.click();
+    }
+  });
+</script>
+
+</body>
+</html>
